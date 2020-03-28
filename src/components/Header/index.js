@@ -14,6 +14,7 @@ export default function Header() {
         <nav>
           <MdCake size={48} color="#204051" />
           <Link to="/dashboard">DASHBOARD</Link>
+          <Link to="/employees">COLABORADORES</Link>
         </nav>
         <aside>
           <Profile>
