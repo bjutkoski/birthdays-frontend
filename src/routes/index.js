@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Switch } from 'react-router-dom';
+import { Switch, useHistory } from 'react-router-dom';
 import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
@@ -13,6 +13,11 @@ import NotFound from '~/pages/NotFound';
 import Profile from '~/pages/Profile';
 
 export default function Routes() {
+  const history = useHistory();
+  history.listen(() => {
+    window.scrollTo(0, 0);
+  });
+
   const profile = useSelector(state => state.user.profile);
 
   return (
