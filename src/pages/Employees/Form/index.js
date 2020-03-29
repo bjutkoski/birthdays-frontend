@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 
 import AvatarInput from '~/components/AvatarInput';
 
@@ -28,16 +29,22 @@ export default function Employee() {
     const response = await api.post(`users`, data);
 
     setEmployee(response.data);
+
+    toast.success('Cadastro criado com sucesso');
   }
 
   async function updateEmployee(data) {
     const response = await api.put(`users/${id}`, data);
 
     setEmployee(response.data);
+
+    toast.success('Cadastro atualizado com sucesso');
   }
 
   async function deleteEmployee() {
     await api.delete(`users/${id}`);
+
+    toast.success('Cadastro excluído com sucesso');
   }
 
   async function handleSubmit(data) {
@@ -77,12 +84,14 @@ export default function Employee() {
           type="submit"
         />
       </Form>
-      <StyledButton
-        backgroundColor="#f64c75"
-        buttonText="Excluir"
-        type="button"
-        onClick={handleDelete}
-      />
+      {id && (
+        <StyledButton
+          backgroundColor="#f64c75"
+          buttonText="Excluir"
+          type="button"
+          onClick={handleDelete}
+        />
+      )}
     </Container>
   );
 }

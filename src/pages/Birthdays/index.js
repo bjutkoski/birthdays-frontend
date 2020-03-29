@@ -37,56 +37,73 @@ const dateTypes = {
 
 const handleDate = {
   [dateTypes.DAY]: {
-    getInitStartDate: () => new Date(),
-    getInitEndDate: () => new Date(),
-    getPrevStartDate: currentStartDate => subDays(currentStartDate, 1),
-    getPrevEndDate: currentEndDate => subDays(currentEndDate, 1),
-    getNextStartDate: currentStartDate => addDays(currentStartDate, 1),
-    getNextEndDate: currentEndDate => addDays(currentEndDate, 1),
+    getInit: () => [new Date(), new Date()],
+    getPrev: (currentStartDate, currentEndDate) => [
+      subDays(currentStartDate, 1),
+      subDays(currentEndDate, 1),
+    ],
+    getNext: (currentStartDate, currentEndDate) => [
+      addDays(currentStartDate, 1),
+      addDays(currentEndDate, 1),
+    ],
     getFormattedDate: startDate =>
       format(startDate, "d 'de' MMMM", { locale: ptBr }),
   },
   [dateTypes.WEEK]: {
-    getInitStartDate: () => startOfWeek(new Date()),
-    getInitEndDate: () => endOfWeek(new Date()),
-    getPrevStartDate: currentStartDate => subWeeks(currentStartDate, 1),
-    getPrevEndDate: currentEndDate => subWeeks(currentEndDate, 1),
-    getNextStartDate: currentStartDate => addWeeks(currentStartDate, 1),
-    getNextEndDate: currentEndDate => addWeeks(currentEndDate, 1),
+    getInit: () => [startOfWeek(new Date()), endOfWeek(new Date())],
+    getPrev: (currentStartDate, currentEndDate) => [
+      subWeeks(currentStartDate, 1),
+      subWeeks(currentEndDate, 1),
+    ],
+    getNext: (currentStartDate, currentEndDate) => [
+      addWeeks(currentStartDate, 1),
+      addWeeks(currentEndDate, 1),
+    ],
     getFormattedDate: (startDate, endDate) =>
       `${format(startDate, "d 'de' MMMM", {
         locale: ptBr,
       })} - ${format(endDate, "d 'de' MMMM", { locale: ptBr })}`,
   },
   [dateTypes.MONTH]: {
-    getInitStartDate: () => startOfMonth(new Date()),
-    getInitEndDate: () => endOfMonth(new Date()),
-    getPrevStartDate: currentStartDate => subMonths(currentStartDate, 1),
-    getPrevEndDate: currentEndDate => subMonths(currentEndDate, 1),
-    getNextStartDate: currentStartDate => addMonths(currentStartDate, 1),
-    getNextEndDate: currentEndDate => addMonths(currentEndDate, 1),
+    getInit: () => [startOfMonth(new Date()), endOfMonth(new Date())],
+    getPrev: currentStartDate => {
+      const prevDate = subMonths(currentStartDate, 1);
+      return [prevDate, endOfMonth(prevDate)];
+    },
+    getNext: currentStartDate => {
+      const nextDate = addMonths(currentStartDate, 1);
+      return [nextDate, endOfMonth(nextDate)];
+    },
     getFormattedDate: startDate => format(startDate, 'MMMM', { locale: ptBr }),
   },
   [dateTypes.ALL]: {
-    getInitStartDate: () => startOfYear(new Date()),
-    getInitEndDate: () => endOfYear(new Date()),
-    getPrevStartDate: currentStartDate => currentStartDate,
-    getPrevEndDate: currentEndDate => currentEndDate,
-    getNextStartDate: currentStartDate => currentStartDate,
-    getNextEndDate: currentEndDate => currentEndDate,
+    getInit: () => [startOfYear(new Date()), endOfYear(new Date())],
+    getPrev: (currentStartDate, currentEndDate) => [
+      currentStartDate,
+      currentEndDate,
+    ],
+    getNext: (currentStartDate, currentEndDate) => [
+      currentStartDate,
+      currentEndDate,
+    ],
     getFormattedDate: () => 'Todos',
   },
 };
 
 export default function Birthdays() {
   const [birthdays, setBirthdays] = useState([]);
-  const [dateType, setDateType] = useState(dateTypes.ALL);
-  const [startDate, setStartDate] = useState(startOfYear(new Date()));
-  const [endDate, setEndDate] = useState(endOfYear(new Date()));
+  const [dateType, setDateType] = useState(dateTypes.MONTH);
+  const [startDate, setStartDate] = useState(
+    handleDate[dateTypes.MONTH].getInit()[0]
+  );
+  const [endDate, setEndDate] = useState(
+    handleDate[dateTypes.MONTH].getInit()[1]
+  );
 
   useEffect(() => {
-    setStartDate(handleDate[dateType].getInitStartDate());
-    setEndDate(handleDate[dateType].getInitEndDate());
+    const [initStartDate, initEndDate] = handleDate[dateType].getInit();
+    setStartDate(initStartDate);
+    setEndDate(initEndDate);
   }, [dateType]);
 
   const dateFormatted = useMemo(
@@ -107,13 +124,21 @@ export default function Birthdays() {
   }, [dateType, startDate, endDate]);
 
   function handlePrevDate() {
-    setStartDate(handleDate[dateType].getPrevStartDate(startDate));
-    setEndDate(handleDate[dateType].getPrevEndDate(endDate));
+    const [prevStartDate, prevEndDate] = handleDate[dateType].getPrev(
+      startDate,
+      endDate
+    );
+    setStartDate(prevStartDate);
+    setEndDate(prevEndDate);
   }
 
   function handleNextDate() {
-    setStartDate(handleDate[dateType].getNextStartDate(startDate));
-    setEndDate(handleDate[dateType].getNextEndDate(endDate));
+    const [nextStartDate, nextEndDate] = handleDate[dateType].getNext(
+      startDate,
+      endDate
+    );
+    setStartDate(nextStartDate);
+    setEndDate(nextEndDate);
   }
 
   function handlePrevDateType() {
