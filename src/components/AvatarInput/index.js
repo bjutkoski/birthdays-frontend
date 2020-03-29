@@ -10,6 +10,10 @@ export default function AvatarInput() {
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
+  useEffect(() => {
+    setPreview(defaultValue && defaultValue.url);
+  }, [defaultValue]);
+
   const ref = useRef();
 
   useEffect(() => {

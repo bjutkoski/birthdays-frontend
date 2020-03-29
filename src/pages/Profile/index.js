@@ -5,7 +5,7 @@ import { Form, Input } from '@rocketseat/unform';
 import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
-import AvatarInput from './AvatarInput';
+import AvatarInput from '~/components/AvatarInput';
 
 import { Container } from './styles';
 
