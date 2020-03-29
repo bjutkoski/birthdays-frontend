@@ -7,7 +7,7 @@ import { updateProfileRequest } from '~/store/modules/user/actions';
 
 import AvatarInput from '~/components/AvatarInput';
 
-import { Container } from './styles';
+import { Container, StyledButton } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -40,11 +40,18 @@ export default function Profile() {
           placeholder="Confirmação de senha"
         />
 
-        <button type="submit">Atualizar perfil</button>
+        <StyledButton
+          backgroundColor="#3b9eff"
+          buttonText="Atualizar perfil"
+          type="submit"
+        />
       </Form>
-      <button type="button" onClick={handleSignOut}>
-        Sair do Bdays
-      </button>
+      <StyledButton
+        backgroundColor="#f64c75"
+        buttonText="Sair do Bdays"
+        type="button"
+        onClick={handleSignOut}
+      />
     </Container>
   );
 }

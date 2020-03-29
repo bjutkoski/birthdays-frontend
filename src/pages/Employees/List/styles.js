@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+
+import Button from '~/components/Button';
 
 export const Container = styled.div`
   max-width: 600px;
@@ -16,23 +17,6 @@ export const Container = styled.div`
     strong {
       color: #fff;
       font-size: 24px;
-    }
-
-    button {
-      padding: 0 10px;
-      margin: 5px 0 0;
-      height: 44px;
-      background: #3b9eff;
-      font-weight: bold;
-      color: #fff;
-      border: 0;
-      border-radius: 4px;
-      font-size: 16px;
-      transition: background 0.2s;
-
-      &:hover {
-        background: ${darken(0.03, '#3b9eff')};
-      }
     }
   }
 
@@ -52,6 +36,10 @@ export const Employee = styled.li`
     border-radius: 4px;
     background: #fff;
     margin-bottom: 10px;
+  }
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
 
@@ -80,4 +68,8 @@ export const Details = styled.div`
     color: #999;
     word-break: break-all;
   }
+`;
+
+export const StyledButton = styled(Button)`
+  padding: 0 10px;
 `;

@@ -8,7 +8,7 @@ import { MdPerson, MdCake } from 'react-icons/md';
 import Info from '~/components/Info';
 import api from '~/services/api';
 
-import { Container, Employee, Avatar, Details } from './styles';
+import { Container, Employee, Avatar, Details, StyledButton } from './styles';
 
 export default function Employees() {
   const history = useHistory();
@@ -28,9 +28,12 @@ export default function Employees() {
     <Container>
       <header>
         <strong>Colaboradores</strong>
-        <button type="button" onClick={() => history.push('/employees/new')}>
-          Adicionar
-        </button>
+        <StyledButton
+          backgroundColor="#3b9eff"
+          buttonText="Adicionar"
+          type="button"
+          onClick={() => history.push('/employees/new')}
+        />
       </header>
 
       <ul>

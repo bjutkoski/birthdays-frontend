@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 
 import { MdCake } from 'react-icons/md';
 
+import Button from '~/components/Button';
+
 import { signInRequest } from '~/store/modules/auth/actions';
 
 const schema = Yup.object().shape({
@@ -33,7 +35,11 @@ export default function SignIn() {
           placeholder="Sua senha secreta"
         />
 
-        <button type="submit">{loading ? 'Carregando...' : 'Acessar'}</button>
+        <Button
+          type="submit"
+          backgroundColor="#3b9eff"
+          buttonText={loading ? 'Carregando...' : 'Acessar'}
+        />
       </Form>
     </>
   );

@@ -6,7 +6,7 @@ import AvatarInput from '~/components/AvatarInput';
 
 import api from '~/services/api';
 
-import { Container } from './styles';
+import { Container, StyledButton } from './styles';
 
 export default function Employee() {
   const { id } = useParams();
@@ -36,6 +36,10 @@ export default function Employee() {
     setEmployee(response.data);
   }
 
+  async function deleteEmployee() {
+    await api.delete(`users/${id}`);
+  }
+
   async function handleSubmit(data) {
     if (id) {
       if (data.password === '') delete data.password;
@@ -43,6 +47,11 @@ export default function Employee() {
     } else {
       await createEmployee(data);
     }
+    history.push('/employees');
+  }
+
+  async function handleDelete() {
+    await deleteEmployee();
     history.push('/employees');
   }
 
@@ -62,8 +71,18 @@ export default function Employee() {
           placeholder="Confirmação de senha"
         />
 
-        <button type="submit">Gravar</button>
+        <StyledButton
+          backgroundColor="#3b9eff"
+          buttonText="Gravar"
+          type="submit"
+        />
       </Form>
+      <StyledButton
+        backgroundColor="#f64c75"
+        buttonText="Excluir"
+        type="button"
+        onClick={handleDelete}
+      />
     </Container>
   );
 }
