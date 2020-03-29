@@ -4,7 +4,7 @@ import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
 
-import Dashboard from '~/pages/Dashboard';
+import Birthdays from '~/pages/Birthdays';
 import Employees from '~/pages/Employees/List';
 import Employee from '~/pages/Employees/Form';
 import Profile from '~/pages/Profile';
@@ -14,7 +14,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/dashboard" component={Dashboard} isPrivate />
+      <Route path="/birthdays" component={Birthdays} isPrivate />
       <Route path="/employees/new" component={Employee} isPrivate />
       <Route path="/employees/:id" component={Employee} isPrivate />
       <Route path="/employees" component={Employees} isPrivate />

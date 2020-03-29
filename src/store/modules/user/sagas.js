@@ -1,4 +1,4 @@
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { takeLatest, call, put, all, select } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 import Types from './types';
 
@@ -8,6 +8,8 @@ import { updateProfileSuccess, updateProfileFailure } from './actions';
 
 export function* updateProfile({ payload }) {
   try {
+    const userId = yield select(state => state.user.profile.id);
+
     const { name, email, avatar_id, ...rest } = payload.data;
 
     const profile = {
@@ -17,7 +19,7 @@ export function* updateProfile({ payload }) {
       ...(rest.oldPassword ? rest : {}),
     };
 
-    const response = yield call(api.put, 'users', profile);
+    const response = yield call(api.put, `users/${userId}`, profile);
 
     toast.success('Perfil atualizado com sucesso!');
 

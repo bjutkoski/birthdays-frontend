@@ -1,30 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR';
 
 import { MdPerson, MdCake } from 'react-icons/md';
 
+import Info from '~/components/Info';
 import api from '~/services/api';
 
-import { Container, Employee, Avatar, Details, InfoContainer } from './styles';
-
-function Info({ icon: Icon, text }) {
-  return (
-    <InfoContainer>
-      <Icon size={18} color="#84a9ac" />
-      <span>{text}</span>
-    </InfoContainer>
-  );
-}
-
-Info.propTypes = {
-  icon: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-};
+import { Container, Employee, Avatar, Details } from './styles';
 
 export default function Employees() {
+  const history = useHistory();
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
@@ -41,6 +28,9 @@ export default function Employees() {
     <Container>
       <header>
         <strong>Colaboradores</strong>
+        <button type="button" onClick={() => history.push('/employees/new')}>
+          Adicionar
+        </button>
       </header>
 
       <ul>
@@ -60,15 +50,15 @@ export default function Employees() {
                   <Info
                     icon={MdCake}
                     text={
-                      employee.birthday
-                        ? format(parseISO(employee.birthday), 'dd/MM/yyyy', {
+                      employee.birthdate
+                        ? format(parseISO(employee.birthdate), 'dd/MM/yyyy', {
                             locale: ptBr,
                           })
                         : '??/??/????'
                     }
                   />
                 </div>
-                <p>Teste</p>
+                <p>{employee.description}</p>
               </Details>
             </Link>
           </Employee>

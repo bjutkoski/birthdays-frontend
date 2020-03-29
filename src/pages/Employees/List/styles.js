@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   max-width: 600px;
@@ -9,13 +10,29 @@ export const Container = styled.div`
 
   header {
     display: flex;
-    align-self: center;
     align-items: center;
+    justify-content: space-between;
 
     strong {
       color: #fff;
       font-size: 24px;
-      margin: 0 15px;
+    }
+
+    button {
+      padding: 0 10px;
+      margin: 5px 0 0;
+      height: 44px;
+      background: #3b9eff;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: ${darken(0.03, '#3b9eff')};
+      }
     }
   }
 
@@ -39,8 +56,8 @@ export const Employee = styled.li`
 `;
 
 export const Avatar = styled.img`
-  max-width: 54px;
-  max-height: 54px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   margin-right: 20px;
 `;
@@ -62,21 +79,5 @@ export const Details = styled.div`
   > p {
     color: #999;
     word-break: break-all;
-  }
-`;
-
-export const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-
-  svg {
-    margin-right: 5px;
-  }
-
-  span {
-    font-size: 16px;
-    font-weight: bold;
   }
 `;

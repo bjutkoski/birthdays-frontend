@@ -21,7 +21,7 @@ export default function Employee() {
       setEmployee(response.data);
     }
 
-    loadEmployee();
+    if (id) loadEmployee();
   }, [id]);
 
   async function createEmployee(data) {
@@ -38,6 +38,7 @@ export default function Employee() {
 
   async function handleSubmit(data) {
     if (id) {
+      if (data.password === '') delete data.password;
       await updateEmployee(data);
     } else {
       await createEmployee(data);
@@ -47,10 +48,12 @@ export default function Employee() {
 
   return (
     <Container>
-      <Form initialData={employee} onSubmit={handleSubmit}>
+      <Form autoComplete="off" initialData={employee} onSubmit={handleSubmit}>
         <AvatarInput name="avatar_id" />
-        <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Seu endereço de e-mail" />
+        <Input name="name" placeholder="Nome completo" />
+        <Input name="description" placeholder="Descrição" />
+        <Input name="birthdate" placeholder="Data de Nascimento" type="date" />
         <hr />
         <Input type="password" name="password" placeholder="Nova senha" />
         <Input
