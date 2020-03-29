@@ -4,6 +4,7 @@ import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 
 import AvatarInput from '~/components/AvatarInput';
+import Checkbox from '~/components/Checkbox';
 
 import api from '~/services/api';
 
@@ -70,6 +71,7 @@ export default function Employee() {
         <Input name="name" placeholder="Nome completo" />
         <Input name="description" placeholder="Descrição" />
         <Input name="birthdate" placeholder="Data de Nascimento" type="date" />
+        <Checkbox name="admin" label="Administrador" />
         <hr />
         <Input type="password" name="password" placeholder="Nova senha" />
         <Input
