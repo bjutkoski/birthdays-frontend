@@ -13,7 +13,10 @@ export default function Header() {
       <Content>
         <nav>
           <MdCake size={48} color="#204051" />
-          <Link to="/dashboard">DASHBOARD</Link>
+          <Link to="/birthdays">ANIVERSARIANTES</Link>
+          {profile && profile.isAdmin && (
+            <Link to="/employees">COLABORADORES</Link>
+          )}
         </nav>
         <aside>
           <Profile>
@@ -23,7 +26,7 @@ export default function Header() {
             </div>
             <img
               src={
-                profile.avatar ||
+                (profile.avatar && profile.avatar.url) ||
                 'https://api.adorable.io/avatars/50/abott@adorable.png'
               }
               alt="Avatar"

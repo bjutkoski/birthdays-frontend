@@ -5,9 +5,9 @@ import { Form, Input } from '@rocketseat/unform';
 import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
-import AvatarInput from './AvatarInput';
+import AvatarInput from '~/components/AvatarInput';
 
-import { Container } from './styles';
+import { Container, StyledButton } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -25,8 +25,10 @@ export default function Profile() {
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
         <AvatarInput name="avatar_id" />
-        <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Seu endereço de e-mail" />
+        <Input name="name" placeholder="Nome completo" />
+        <Input name="description" placeholder="Descrição" />
+        <Input name="birthdate" placeholder="Data de Nascimento" type="date" />
         <hr />
         <Input
           type="password"
@@ -40,11 +42,18 @@ export default function Profile() {
           placeholder="Confirmação de senha"
         />
 
-        <button type="submit">Atualizar perfil</button>
+        <StyledButton
+          backgroundColor="#3b9eff"
+          buttonText="Atualizar perfil"
+          type="submit"
+        />
       </Form>
-      <button type="button" onClick={handleSignOut}>
-        Sair do Bdays
-      </button>
+      <StyledButton
+        backgroundColor="#f64c75"
+        buttonText="Sair do Bdays"
+        type="button"
+        onClick={handleSignOut}
+      />
     </Container>
   );
 }

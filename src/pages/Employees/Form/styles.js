@@ -1,25 +1,21 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  height: 100%;
-  background: linear-gradient(-90deg, #3b6978, #204051);
+import Button from '~/components/Button';
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const StyledButton = styled(Button)`
+  margin: 0 0 10px;
 `;
 
-export const Content = styled.div`
-  width: 100%;
-  max-width: 315px;
-  text-align: center;
+export const Container = styled.div`
+  max-width: 600px;
+  margin: 50px auto;
 
   form {
     display: flex;
     flex-direction: column;
     margin-top: 30px;
 
-    input {
+    > input {
       background: rgba(0, 0, 0, 0.1);
       border: 0;
       border-radius: 4px;
@@ -40,15 +36,15 @@ export const Content = styled.div`
       font-weight: bold;
     }
 
-    a {
-      color: #fff;
-      margin-top: 15px;
-      font-size: 16px;
-      opacity: 0.8;
-
-      &:hover {
-        opacity: 1;
-      }
+    hr {
+      border: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 10px 0 20px;
     }
+  }
+
+  > ${StyledButton} {
+    width: 100%;
   }
 `;
