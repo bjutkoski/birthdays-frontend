@@ -14,7 +14,9 @@ export default function Header() {
         <nav>
           <MdCake size={48} color="#204051" />
           <Link to="/birthdays">ANIVERSARIANTES</Link>
-          <Link to="/employees">COLABORADORES</Link>
+          {profile && profile.isAdmin && (
+            <Link to="/employees">COLABORADORES</Link>
+          )}
         </nav>
         <aside>
           <Profile>
