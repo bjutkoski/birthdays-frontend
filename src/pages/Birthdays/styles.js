@@ -9,7 +9,6 @@ export const Container = styled.div`
 
   header {
     display: flex;
-    flex-direction: column;
     align-self: center;
     align-items: center;
   }
